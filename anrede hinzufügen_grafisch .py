@@ -6,14 +6,13 @@ import tkinter as tk
 from tkinter import ttk
 
 
-#connect mariadb
-
-
 class Anrede():
     def __init__(self,id,anrede):
         self.id = id
         self.anrede = anrede
 
+
+#connect mariadb
  
 try:
     conn = mariadb.connect(
@@ -29,22 +28,6 @@ except mariadb.Error as e:
 cur = conn.cursor()
 
 
-#   GUI   
-
-root = tk.Tk()
-root.geometry("1000x600")
-root.title("Anrede hinzufügen")
- 
-label = ttk.Label(root, text="Anrede hinzufügen: ")
-entry = ttk.Entry(root)
-
-columns = ("ID","Anrede")
-tree = ttk.Treeview(root, columns=columns, show="headings", height= 25)
-
-tree.heading("ID", text="ID")
-tree.heading("Anrede", text="Anrede")
-
-cur.execute(f"""SELECT `ID_Anrede`, `Anrede`FROM `anrede` """)
 
 # Funktion um Daten in GUI zu integrieren
 
@@ -83,6 +66,25 @@ def hinzufügen ():
     anzeigen()
 
     entry.delete(0,"end")
+
+
+#   GUI   
+
+root = tk.Tk()
+root.geometry("1000x600")
+root.title("Anrede hinzufügen")
+ 
+label = ttk.Label(root, text="Anrede hinzufügen: ")
+entry = ttk.Entry(root)
+
+columns = ("ID","Anrede")
+tree = ttk.Treeview(root, columns=columns, show="headings", height= 25)
+
+tree.heading("ID", text="ID")
+tree.heading("Anrede", text="Anrede")
+
+cur.execute(f"""SELECT `ID_Anrede`, `Anrede`FROM `anrede` """)
+
 
 anzeigen()
 label.pack(pady=10)
